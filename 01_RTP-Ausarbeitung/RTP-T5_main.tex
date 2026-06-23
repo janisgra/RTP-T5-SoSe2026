@@ -1,0 +1,210 @@
+\documentclass[12pt, oneside, a4paper]{scrreprt}
+
+\input{style.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    % \todototoc
+    % \listoftodos
+
+    \begin{titlepage}
+
+        \begin{tabular}{l r}
+            \includegraphics[width=0.5\textwidth]{figure/oth-regensburg-logo.jpg}
+            &
+        \end{tabular}
+        \vspace{1cm}
+
+        \begin{minipage} [c] [8.5cm] [b] {\textwidth}
+            \Huge{
+                \begin{center}
+                    \textbf{Praktikum Regelungstechnik (RTP)}\\[0.8cm]
+                    \textbf{Versuch T5:\\ RetBot, distance control} \\[1.5cm]
+                    \par
+                    %{\large Versuch 3}\\[1cm]
+                    {\large \today} \\[1cm]
+                \end{center}
+                }
+        \end{minipage}
+
+        \vspace{0.1cm}
+
+        \begin{minipage} [c] [3.5cm] [b] {\textwidth}
+            \begin{center}
+                \vspace{0.3cm}
+                Gruppe 38\\
+                Marius Off\\
+                Janis Graf\\
+                \vspace{0.5cm}
+                %\texttt{Dokument-Version: 02}\\
+            \end{center}
+        \end{minipage}
+
+    \end{titlepage}
+
+    \tableofcontents
+
+
+    \chapter{Preparations}\label{chap:preperations}
+
+        \section{(aV)  P controller in the time domain}\label{sec:a-p-controller-time-domain}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(aV) What is the equation that describes a digital P controller in the time domain?}}
+            \end{displaycquote}\label{task(aV)}
+
+        \section{(bV) Transfer function of open loop P controller}\label{sec:b-transfer-function-open-loop-p-controller}
+            
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(bV) What is the transfer function of the open loop with P controller?\\
+                Which characteristic shows $G_o(s)$ ?}}
+            \end{displaycquote}\label{task(bV)}
+
+        \section{(cV) Transfer function of distance control with P controller}\label{sec:c-transfer-function-distance-control-p-controller}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(cV) What is the transfer function of the distance control with P controller?\\
+                Which characteristic shows $G_W(s)$ ?}}
+            \end{displaycquote}\label{task(cV)}
+
+
+        \section{(dV) Reasonable damping ratio D for the closed control loop}\label{sec:d-reasonable-damping-ratio}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(dV) Select a reasonable damping ratio D for the closed control loop and calculate the controller parameter $K_P$ so that the desired/selected damping ratio is achieved.}}
+            \end{displaycquote}\label{task(dV)}
+
+
+
+    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \chapter{Experiment T5: RetBot, distance control}\label{ch:ExperimentT5}
+
+        \section{e) }\label{sec:e-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(e) Simulate the idealized behavior of the closed control loop in Matlab/Simulink using the controller parameter $K_P$ calculated in the preparation by using the setup from previous experiment.}}
+            \end{displaycquote}\label{task(e)}
+
+
+        \section{f) }\label{sec:f-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(f) Plot the reference variable, the manipulated variable, and the controlled variable via Matlab (clean graphs, no screenshots from the scope). Is the damping level you selected correct? Interpret the signal curves.}}
+            \end{displaycquote}\label{task(f)}
+
+        \section{g) }\label{sec:g-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(g) Implement the P controller for the LEGO robot - see 3.7 for the existing software-based control loop, that can be parameterized by using following commands using Serial.ICE:
+                \begin{itemize}
+                    \item `1': set $K_P$
+                    \item `2': set $K_I$
+                    \item `3': set $K_D$
+                    \item `4': set desired distance/cm
+                    \item `5': set $K_0$
+                    \item `6': set $K_1$
+                \end{itemize}
+                Show the correct implementation by Serial.ICE commands and received data.}}
+            \end{displaycquote}\label{task(g)}
+
+
+        \section{h) }\label{sec:h-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(h) Upload a video showing the robot moving towards an obstacle.}}
+            \end{displaycquote}\label{task(h)}
+
+
+        \section{i) }\label{sec:i-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(i) Read the recorded data of your test-drive using Serial.ICE and compare it to the simulated results - distance, travelled distance and duty-cycle of motor 0! This has to be done in one graph after importing the data according to the previous experiment!}}
+            \end{displaycquote}\label{task(i)}
+
+
+        \section{j) }\label{sec:j-}
+
+            \begin{displaycquote}{RTP_Versuche}
+                \footnotesize{\textit{(j) Increase $K_P$, check the influence of the rate-limit-factor in a way that the robot shows periodic oscillations - write down this critical value(s) and upload a video.}}
+            \end{displaycquote}\label{task(j)}
+
+
+
+
+            \cleardoublepage
+
+
+
+
+
+
+
+    \appendix
+        % \makeatletter
+        
+    \chapter{Appendix Frontmatter}
+
+        \section{Declarations}\label{app:statutory}
+
+            \begin{enumerate}
+                \item Wir erkläre hiermit, dass wir dieses Dokument selbstständig verfasst, noch nicht anderweitig für Prüfungszwecke vorgelegt, keine anderen als die angegebenen Quellen und Hilfsmittel benutzt sowie wörtliche und sinngemäße Zitate als solche gekennzeichnet haben.
+            \end{enumerate}
+
+            \vskip22mm
+            Regensburg, den 2026-05-01, \\
+            "\hskip6cm Marius Off\hskip2cm Matrikelnummer:~3416002,\\
+            "\hskip6cm Janis Graf\hskip2cm Matrikelnummer:~3377251
+            \vskip1mm
+            \hrule
+            \vskip1mm
+            {\footnotesize Ort, Datum und Unterschrift}
+
+            \vspace{12mm}
+
+            \cleardoublepage
+
+        \listoffigures
+
+        %\listoftables
+
+            \cleardoublepage
+
+    \chapter{Appendix Code and Resources}
+
+
+
+            \section{Code used for the analysis of the Preperations}
+            
+            %\lstinputlisting[caption={Code used for the analysis of the Preperations}, label={lst:preperations}]{../02_Preperations/RTP-T2-analysis.ipynb}
+
+                \begin{tcolorbox}[
+                    colback=red!10,
+                    colframe=red!70!black,
+                    title=\textbf{Editorial note — Source code omitted},
+                    fonttitle=\bfseries,
+                    sharp corners=south,
+                ]
+                    The full source code for the analysis (a Jupyter notebook of this time approximately 1{,}500 lines and a simulink model) is \textbf{\emph{not}} included in this appendix. Including it as a verbatim listing caused major build instability again and was therefore deliberately omitted.
+
+                    The complete source can be obtained by either of the following means:
+                    \begin{itemize}
+                        \item By email request to \texttt{janis.graf@st.oth-regensburg.de}
+                        \item Via requesting access to the GitHub repository: \url{https://github.com/janisgra/RTP-T4-SoSe2026.git}
+                    \end{itemize}
+                \end{tcolorbox}
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %\chapter{Bibliography}
+        %%%Literaturverzeichnis
+        \printbibliography
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
