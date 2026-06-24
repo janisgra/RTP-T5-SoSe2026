@@ -57,12 +57,30 @@
                 \footnotesize{\textit{(aV) What is the equation that describes a digital P controller in the time domain?}}
             \end{displaycquote}\label{task(aV)}
 
+            \begin{equation}
+                x_a[t] = K_P \cdot e[t]
+            \end{equation}
+
+            \begin{enumerate}
+                \item $x_a(t)$: Input variable of the P controller
+                \item $K_p$: Proportional coefficient
+                \item $y(t)$: Control output of the P controller
+            \end{enumerate}
+
+
         \section{(bV) Transfer function of open loop P controller}\label{sec:b-transfer-function-open-loop-p-controller}
             
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(bV) What is the transfer function of the open loop with P controller?\\
                 Which characteristic shows $G_o(s)$ ?}}
             \end{displaycquote}\label{task(bV)}
+
+            The transfer function $G_o(s)$ is obtained using the block diagram determined in the fourth experiment as follows:
+            \begin{equation}
+                G_o(s) = K_P\cdot \frac{-K_I}	{T_1\cdot s^2 + s }
+            \end{equation}\label{eq:G_o(s)}
+
+            $G_o(s)$ exhibits IT1 behavior.
 
         \section{(cV) Transfer function of distance control with P controller}\label{sec:c-transfer-function-distance-control-p-controller}
 
@@ -71,15 +89,68 @@
                 Which characteristic shows $G_W(s)$ ?}}
             \end{displaycquote}\label{task(cV)}
 
+            By inserting \ref{eq:G_o(s)}, we obtain the following for $G_W(s)$:
+
+            \begin{equation}
+                G_W(s) = \frac{G_o(s)}{1 + G_o(s)} = \frac{1}{1 + \frac{-T_1}{K_P\cdot K_I}  \cdot s^2 - \frac{1}{K_P\cdot K_I}\cdot s}
+            \end{equation}\label{eq:G_W(s)}  
+
+            The closed-loop system $G_W(s)$ exhibits $PT_2$ behavior.
+
 
         \section{(dV) Reasonable damping ratio D for the closed control loop}\label{sec:d-reasonable-damping-ratio}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(dV) Select a reasonable damping ratio D for the closed control loop and calculate the controller parameter $K_P$ so that the desired/selected damping ratio is achieved.}}
             \end{displaycquote}\label{task(dV)}
+            
+            The damping ratio is set to D = 1 (aperiodic limit case) to ensure a fast, overshoot-free settling. This allows the robot to reach the target distance as quickly as possible without having to move backward. The standard mathematical form of a PT2 system is:
 
+            \begin{equation}
+                G_s = \frac{K_P}{\frac{1}{\omega _0^2} \cdot s^2 + \frac{2D}{\omega _0 \cdot s} + 1}
+            \end{equation}\label{eq:PT_2}
 
+            Rearranging \ref{eq:PT_2} yields:
 
+            \begin{equation}
+                \frac{1}{\omega _0 ^2} = - \frac{T_1}{K_P \cdot K_I} \rightarrow \omega_0 = \sqrt{-\frac{K_P \cdot K_I}{T_1}}
+            \end{equation}\label{eq:w_0}
+
+            \begin{equation}
+                \frac{2D}{\omega _0 } = - \frac{1}{K_P \cdot K_I} \rightarrow \omega_0 = - K_P \cdot K_I \cdot 2 \cdot D
+            \end{equation}\label{eq:2D/w_0}
+            
+            If we now set Equation \ref{eq:2D/w_0} equal to \ref{eq:w_0}, we can solve for $K_P$.
+
+            \begin{equation}
+                \sqrt{-\frac{K_P \cdot K_I}{T_1}} = - K_P \cdot K_I \cdot 2 \cdot D \rightarrow K_P = \frac{1}{4 \cdot D^2 \cdot T_1\cdot K_I}
+            \end{equation}\label{eq:K_P}
+
+            Using the previously determined parameters (mean value) $K_I$ and $T_1$, 
+
+            Left motor:
+            \begin{equation}
+                K_{I,L} = \qty{0.437}{\centi\metre\per\second\per\percent}, \qquad
+                T_{1,L} = \qty{57.1}{\milli\second} = \qty{0.0571}{\second}
+            \end{equation}
+
+            Right motor:
+            \begin{equation}
+                K_{I,R} = \qty{0.446}{\centi\metre\per\second\per\percent}, \qquad
+                T_{1,R} = \qty{52.2}{\milli\second} = \qty{0.0522}{\second}
+            \end{equation}
+
+            the following values are obtained:
+
+            Left motor:
+            \begin{equation}
+                K_{P,L} = \frac{1}{4 \cdot 1^2 \cdot 0.0571 \cdot 0.437} = \qty{9.99}{\percent\per\cm} \approx \qty{10}{\percent\per\cm}
+            \end{equation}
+
+            Right motor:
+            \begin{equation}
+                K_{P,R} = \frac{1}{4 \cdot 1^2 \cdot 0.0522 \cdot 0.446} = \qty{10.77}{\percent\per\cm} \approx \qty{11}{\percent\per\cm}
+            \end{equation} 
     
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
