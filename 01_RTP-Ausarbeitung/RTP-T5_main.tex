@@ -114,13 +114,15 @@
 
             \begin{equation}
                 \frac{1}{\omega _0 ^2} = - \frac{T_1}{K_P \cdot K_I} \rightarrow \omega_0 = \sqrt{-\frac{K_P \cdot K_I}{T_1}}
-            \end{equation}\label{eq:w_0}
+                \label{eq:w_0}
+            \end{equation}
 
             \begin{equation}
                 \frac{2D}{\omega _0 } = - \frac{1}{K_P \cdot K_I} \rightarrow \omega_0 = - K_P \cdot K_I \cdot 2 \cdot D
-            \end{equation}\label{eq:2D/w_0}
+                \label{eq:2Dw_0}
+            \end{equation}
             
-            If we now set Equation \ref{eq:2D/w_0} equal to \ref{eq:w_0}, we can solve for $K_P$.
+            If we now set Equation \ref{eq:2Dw_0} equal to \ref{eq:w_0}, we can solve for $K_P$.
 
             \begin{equation}
                 \sqrt{-\frac{K_P \cdot K_I}{T_1}} = - K_P \cdot K_I \cdot 2 \cdot D \rightarrow K_P = \frac{1}{4 \cdot D^2 \cdot T_1\cdot K_I}
@@ -151,6 +153,9 @@
             \begin{equation}
                 K_{P,R} = \frac{1}{4 \cdot 1^2 \cdot 0.0522 \cdot 0.446} = \qty{10.77}{\percent\per\cm} \approx \qty{11}{\percent\per\cm}
             \end{equation} 
+
+
+            \todo[inline]{minus werte müssen rauskommen}
     
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,6 +168,8 @@
                 \footnotesize{\textit{(e) Simulate the idealized behavior of the closed control loop in Matlab/Simulink using the controller parameter $K_P$ calculated in the preparation by using the setup from previous experiment.}}
             \end{displaycquote}\label{task(e)}
 
+            \missingfigure{Image of the simulink controller}
+            \todo[inline]{parameters for the simulation}
 
         \section{f) }\label{sec:f-}
 
@@ -171,7 +178,7 @@
             \end{displaycquote}\label{task(f)}
 
             \missingfigure{Plot of the reference variable, the manipulated variable, and the controlled variable}
-
+            \todo[inline]{interpret dampening level}
             \missingfigure{influence of the dampening level plot}
 
         \section{g) }\label{sec:g-}
@@ -188,6 +195,16 @@
                 \end{itemize}
                 Show the correct implementation by Serial.ICE commands and received data.}}
             \end{displaycquote}\label{task(g)}
+
+            \todo[inline]{explain what has been send}
+            \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
+                a
+                b
+                c
+            \end{lstlisting}
+
+            \missingfigure{QEI und Distance}
+
 
 
         \section{h) }\label{sec:h-}
@@ -207,14 +224,25 @@
             
             \missingfigure{Comparison of the recorded data of the test-drive and the simulated results - distance, travelled distance and duty-cycle of motor 0}
 
+            \todo[inline]{compare test to simulation data}
+
         \section{j) }\label{sec:j-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(j) Increase $K_P$, check the influence of the rate-limit-factor in a way that the robot shows periodic oscillations - write down this critical value(s) and upload a video.}}
             \end{displaycquote}\label{task(j)}
 
+            \missingfigure{Video of oscillating robot}
+            \todo[inline]{explain critical value(s)}
 
+%>> (-1)/(4*0.50^2*0.0522*0.446)
+%ans =  -42.9531
 
+              \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
+                a
+                b
+                c
+            \end{lstlisting}
 
             \cleardoublepage
 
