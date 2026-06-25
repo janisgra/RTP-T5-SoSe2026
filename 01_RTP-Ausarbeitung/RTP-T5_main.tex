@@ -162,14 +162,26 @@
 
     \chapter{Experiment T5: RetBot, distance control}\label{ch:ExperimentT5}
 
+        \todo[inline]{name sections with title of the task}
+
         \section{e) }\label{sec:e-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(e) Simulate the idealized behavior of the closed control loop in Matlab/Simulink using the controller parameter $K_P$ calculated in the preparation by using the setup from previous experiment.}}
             \end{displaycquote}\label{task(e)}
 
-            \missingfigure{Image of the simulink controller}
-            \todo[inline]{parameters for the simulation}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{figure/Regelkreis_T4_restored_from_autosave.pdf}    
+                \caption{Image of the simulink controller}
+                \label{fig:simulink-controller}
+            \end{figure}
+            
+            \todo[inline]{cut of white space from simulink image print on pdf}
+            
+            Figure \ref{fig:simulink-controller} shows the Simulink model used for the simulation of the closed control loop. The model is based on the one from the previous experiment, with the addition of a P controller block. The parameters for the simulation are set according to the values calculated in section \ref{sec:d-reasonable-damping-ratio}.
+
+
 
         \section{f) }\label{sec:f-}
 
@@ -178,8 +190,16 @@
             \end{displaycquote}\label{task(f)}
 
             \missingfigure{Plot of the reference variable, the manipulated variable, and the controlled variable}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{figure/ContainerScopePrintToFigure.pdf}
+                \caption{Plot of the reference variable, the manipulated variable, and the controlled variable}
+                \label{fig:container-scope}
+            \end{figure}
+
             \todo[inline]{interpret dampening level}
-            \missingfigure{influence of the dampening level plot}
+
 
         \section{g) }\label{sec:g-}
 
@@ -197,13 +217,45 @@
             \end{displaycquote}\label{task(g)}
 
             \todo[inline]{explain what has been send}
-            \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
-                a
-                b
-                c
+
+            \begin{lstlisting}[caption={Serial.ICE commands send}, label={lst:serial-ice-commands}]
+r       -> QEI reset
+m0      ->
+1-11    -> set K_I to "-11"
+20      -> set K_P to "0"
+30      -> set K_D to "0"
+425     -> set desired distance to "25" cm
+50.99   -> set K_0/Motor0 to "0.99" rotations for each rotation
+61      -> set K_1/Motor1 to "1" rotation for each rotation
             \end{lstlisting}
 
-            \missingfigure{QEI und Distance}
+            The received data from the robot after sending the commands is shown in Listing \ref{lst:serial-ice-commands-received}.
+
+            \begin{lstlisting}[caption={Serial.ICE commands received}, label={lst:serial-ice-commands-received}]
+QEI-Reset done
+Motor-state: 0
+PID-Kp: -11.000000
+PID-Ki: 0.000000
+PID-Kd: 0.000000
+Desired-dist/cm: 25.000000
+K0 set to 0.990000
+K1 set to 1.000000
+fsample=500Hz
+Time/ms;QEI1/steps;QEI2/steps;d/cm;Mot0/%
+   0;   0;   0; 81.0;  3
+   2;   0;   0; 81.0;  3
+   4;   0;   0; 81.0;  3
+   6;   0;   0; 81.0;  3
+   8;   0;   0; 81.0;  3
+  10;   0;   0; 81.0;  3
+            \end{lstlisting}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{figure/Testfahrt_2_D1.pdf}
+                \caption{QEI und Distance Retrun from Serial.ICE}
+                \label{fig:Serial-ICE-QEI-Distance}
+            \end{figure}
 
 
 
@@ -213,7 +265,15 @@
                 \footnotesize{\textit{(h) Upload a video showing the robot moving towards an obstacle.}}
             \end{displaycquote}\label{task(h)}
 
-            \missingfigure{Link to the video}
+            \begin{minipage}[c]{\textwidth}
+                    \centering
+                    \vspace{0pt}
+                    \href{https://youtu.be/gG7SXy00EJQ}{%
+                        \includegraphics[width=\linewidth]{figure/videos/Screenshot_2026-06-25 154420}%
+                    }%
+                    \\[-2pt]
+                    {\footnotesize \href{https://youtu.be/gG7SXy00EJQ}{\url{https://youtu.be/gG7SXy00EJQ}}}
+            \end{minipage}
 
 
         \section{i) }\label{sec:i-}
@@ -222,9 +282,14 @@
                 \footnotesize{\textit{(i) Read the recorded data of your test-drive using Serial.ICE and compare it to the simulated results - distance, travelled distance and duty-cycle of motor 0! This has to be done in one graph after importing the data according to the previous experiment!}}
             \end{displaycquote}\label{task(i)}
             
-            \missingfigure{Comparison of the recorded data of the test-drive and the simulated results - distance, travelled distance and duty-cycle of motor 0}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{figure/Comparison_recorded_vs_simulation.pdf}
+                \caption{Recorded test-drive vs.\ simulation: distance, travelled distance and duty cycle of motor 0.}
+                \label{fig:compare-recorded-sim}
+            \end{figure}
 
-            \todo[inline]{compare test to simulation data}
+            \todo[inline]{compare test to simulation data + error analysis}
 
         \section{j) }\label{sec:j-}
 
@@ -232,16 +297,38 @@
                 \footnotesize{\textit{(j) Increase $K_P$, check the influence of the rate-limit-factor in a way that the robot shows periodic oscillations - write down this critical value(s) and upload a video.}}
             \end{displaycquote}\label{task(j)}
 
-            \missingfigure{Video of oscillating robot}
+
             \todo[inline]{explain critical value(s)}
+                        \begin{minipage}[c]{\textwidth}
+                    \centering
+                    \vspace{0pt}
+                    \href{https://youtu.be/cy5t8bU4MxE}{%
+                        \includegraphics[width=\linewidth]{figure/videos/Screenshot_2026-06-25 154420}%
+                    }%
+                    \\[-2pt]
+                    {\footnotesize \href{https://youtu.be/cy5t8bU4MxE}{\url{https://youtu.be/cy5t8bU4MxE}}}
+            \end{minipage}
+
 
 %>> (-1)/(4*0.50^2*0.0522*0.446)
 %ans =  -42.9531
 
-              \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
-                a
-                b
-                c
+            \begin{equation}
+                K_{P,R} = \frac{-1}{4 \cdot 0.50^2 \cdot 0.0522 \cdot 0.446} = -42.95
+            \end{equation}
+            With $D = 0.5$ to achieve periodic oscillations, the critical value for $K_P$ is \qty{-42.95}.
+
+            The video shows the robot oscillating around the target distance for this the following Serial.ICE commands were sent:
+            
+            \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
+r
+m0
+1-42
+20
+30
+425
+50.99
+61
             \end{lstlisting}
 
             \cleardoublepage
@@ -297,12 +384,12 @@
                     fonttitle=\bfseries,
                     sharp corners=south,
                 ]
-                    The full source code for the analysis (a Jupyter notebook of this time approximately 1{,}500 lines and a simulink model) is \textbf{\emph{not}} included in this appendix. Including it as a verbatim listing caused major build instability again and was therefore deliberately omitted.
+                    The full source code for the analysis (a Jupyter notebook of this time only about \qty{1000} lines and a simulink model) is \textbf{\emph{not}} included in this appendix. Including it as a verbatim listing still caused major build instability again again and was therefore deliberately omitted.
 
                     The complete source can be obtained by either of the following means:
                     \begin{itemize}
                         \item By email request to \texttt{janis.graf@st.oth-regensburg.de}
-                        \item Via requesting access to the GitHub repository: \url{https://github.com/janisgra/RTP-T4-SoSe2026.git}
+                        \item Via requesting access to the GitHub repository: \url{https://github.com/janisgra/RTP-T5-SoSe2026.git}
                     \end{itemize}
                 \end{tcolorbox}
         
