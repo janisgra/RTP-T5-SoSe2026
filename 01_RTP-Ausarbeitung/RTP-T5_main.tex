@@ -58,13 +58,13 @@
             \end{displaycquote}\label{task(aV)}
 
             \begin{equation}
-                x_a[t] = K_P \cdot e[t]
+                x_a(t) = K_P \cdot e(t)
             \end{equation}
 
             \begin{enumerate}
                 \item $x_a(t)$: Input variable of the P controller
                 \item $K_p$: Proportional coefficient
-                \item $y(t)$: Control output of the P controller
+                \item $e(t)$: Control output of the P controller
             \end{enumerate}
 
 
@@ -162,9 +162,7 @@
 
     \chapter{Experiment T5: RetBot, distance control}\label{ch:ExperimentT5}
 
-        \todo[inline]{name sections with title of the task}
-
-        \section{e) }\label{sec:e-}
+        \section{e) Simulink simulation of the closed control loop}\label{sec:e-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(e) Simulate the idealized behavior of the closed control loop in Matlab/Simulink using the controller parameter $K_P$ calculated in the preparation by using the setup from previous experiment.}}
@@ -179,17 +177,16 @@
             
             \todo[inline]{cut of white space from simulink image print on pdf}
             
-            Figure \ref{fig:simulink-controller} shows the Simulink model used for the simulation of the closed control loop. The model is based on the one from the previous experiment, with the addition of a P controller block. The parameters for the simulation are set according to the values calculated in section \ref{sec:d-reasonable-damping-ratio}.
+            Figure \ref{fig:simulink-controller} shows the Simulink model used for the simulation of the closed control loop. The model is based on the one from the previous experiment, with the addition of a $P$ controller block. The parameters for the simulation are set according to the values calculated in section \ref{sec:d-reasonable-damping-ratio}.
 
 
 
-        \section{f) }\label{sec:f-}
+        \section{f) Reference, manipulated and controlled variable}\label{sec:f-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(f) Plot the reference variable, the manipulated variable, and the controlled variable via Matlab (clean graphs, no screenshots from the scope). Is the damping level you selected correct? Interpret the signal curves.}}
             \end{displaycquote}\label{task(f)}
 
-            \missingfigure{Plot of the reference variable, the manipulated variable, and the controlled variable}
 
             \begin{figure}[H]
                 \centering
@@ -200,8 +197,25 @@
 
             \todo[inline]{interpret dampening level}
 
+            \todo{The following section is a translation of the original German text. The original text can be found in the file \texttt{02\_versuch.tex}. and hasnt been proofread yet, formating also needs to be adapted.}
 
-        \section{g) }\label{sec:g-}
+            \begin{itemize}
+                \item 1. Evaluation of the damping: The selected damping proves to be well-suited. Simulation and measurement show that the controlled variable $x$ (actual distance) rapidly converges to the reference variable $w$ (setpoint distance) without significant overshoot or instability. The system exhibits the desired aperiodic transient response, which is ideal for distance control to avoid collisions.
+                \item 2. Interpretation of the Signal Curves: \\
+                    \textbf{Reference variable $\mathbf{w(t)}$:} It represents a step change from $80\,\text{cm}$ to $25\,\text{cm}$.\\
+                    
+                    \textbf{Manipulated variable $\mathbf{y(t)}$:} At the start, the control error is at its maximum ($e = 80\,\text{cm} - 25\,\text{cm} = 55\,\text{cm}$). The P controller theoretically calculates an extremely high manipulated variable from this: $y = K_P \cdot e = 8{,}434 \cdot 55 \approx 464\,\%$. However, since the actual EV3 driver is limited to $\pm 100\,\%$, the motor is initially in saturation ("full throttle"). The data shows that the control variable $y$ does not drop significantly until shortly before reaching the target (in the range from approximately $1{,}04\,\text{s}$ to $1{,}06\,\text{s}$. This marks the transition from saturation to the linear control region, in order to bring the robot to a stop at the target value.
+                    
+                    \textbf{Controlled variable $\mathbf{x(t)}$:} The distance initially decreases linearly, since the motor runs at a constant maximum speed. As soon as the manipulated variable $y$ decreases, the curve flattens out, and the robot asymptotically approaches the target value of $25\,\text{cm}$. Thanks to the integrative behavior of the system (IT1 system), the final value is reached with stationary accuracy.
+                    
+                \item 3. Necessary nonlinear element: To correctly model the real-world conditions in the simulation, a saturation element must be added. As calculated above, the linear P controller initially outputs values well above $100\,\%$. The saturation element limits the control variable $y$ in the model to the physically possible range $[-100, 100]$, which corresponds to the actual behavior of the motor driver.
+            \end{itemize}
+
+            \todo[inline]{use \\qty for the units}
+
+
+
+        \section{g) P-controller implementation on the LEGO robot}\label{sec:g-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(g) Implement the P controller for the LEGO robot - see 3.7 for the existing software-based control loop, that can be parameterized by using following commands using Serial.ICE:
@@ -216,13 +230,16 @@
                 Show the correct implementation by Serial.ICE commands and received data.}}
             \end{displaycquote}\label{task(g)}
 
+
             \todo[inline]{explain what has been send}
+
+            For the measurement, the following values were transmitted to the LEGO robot via Serial.ICE:
 
             \begin{lstlisting}[caption={Serial.ICE commands send}, label={lst:serial-ice-commands}]
 r       -> QEI reset
 m0      ->
-1-11    -> set K_I to "-11"
-20      -> set K_P to "0"
+1-11    -> set K_P to "-11"
+20      -> set K_I to "0"
 30      -> set K_D to "0"
 425     -> set desired distance to "25" cm
 50.99   -> set K_0/Motor0 to "0.99" rotations for each rotation
@@ -257,9 +274,10 @@ Time/ms;QEI1/steps;QEI2/steps;d/cm;Mot0/%
                 \label{fig:Serial-ICE-QEI-Distance}
             \end{figure}
 
+            \todo[inline]{add legend to all subplots of the graph or add detailed description in the caption} 
 
 
-        \section{h) }\label{sec:h-}
+        \section{h) Video: robot approaching an obstacle}\label{sec:h-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(h) Upload a video showing the robot moving towards an obstacle.}}
@@ -276,7 +294,7 @@ Time/ms;QEI1/steps;QEI2/steps;d/cm;Mot0/%
             \end{minipage}
 
 
-        \section{i) }\label{sec:i-}
+        \section{i) Recorded test-drive vs. simulation}\label{sec:i-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(i) Read the recorded data of your test-drive using Serial.ICE and compare it to the simulated results - distance, travelled distance and duty-cycle of motor 0! This has to be done in one graph after importing the data according to the previous experiment!}}
@@ -291,27 +309,31 @@ Time/ms;QEI1/steps;QEI2/steps;d/cm;Mot0/%
 
             \todo[inline]{compare test to simulation data + error analysis}
 
-        \section{j) }\label{sec:j-}
+            
+            \paragraph{Stepped curve (quantization):}
+            The measurement curve is not smooth but takes on a visible staircase shape. This is due to the digital resolution of the sensor, which does not output the distance continuously but only in discrete steps (e.g., in $1\,\text{mm}$ increments).
+            \todo[inline]{explain why the measured curve is not smooth but stepped in more detail and for the mesurment of the ultrasonic sensor and the motors}
+
+        \section{j) Critical gain and rate-limit-induced oscillation}\label{sec:j-}
 
             \begin{displaycquote}{RTP_Versuche}
                 \footnotesize{\textit{(j) Increase $K_P$, check the influence of the rate-limit-factor in a way that the robot shows periodic oscillations - write down this critical value(s) and upload a video.}}
             \end{displaycquote}\label{task(j)}
 
 
-            \todo[inline]{explain critical value(s)}
-                        \begin{minipage}[c]{\textwidth}
-                    \centering
-                    \vspace{0pt}
-                    \href{https://youtu.be/cy5t8bU4MxE}{%
-                        \includegraphics[width=\linewidth]{figure/videos/Screenshot_2026-06-25 154420}%
-                    }%
-                    \\[-2pt]
-                    {\footnotesize \href{https://youtu.be/cy5t8bU4MxE}{\url{https://youtu.be/cy5t8bU4MxE}}}
+            \todo[inline]{explain critical value(s) of D}
+            \todo[inline]{explain dampening factor}
+
+            \begin{minipage}[c]{\textwidth}
+                \centering
+                \vspace{0pt}
+                \href{https://youtu.be/cy5t8bU4MxE}{%
+                    \includegraphics[width=\linewidth]{figure/videos/Screenshot_2026-06-25 154420}%
+                }%
+                \\[-2pt]
+                {\footnotesize \href{https://youtu.be/cy5t8bU4MxE}{\url{https://youtu.be/cy5t8bU4MxE}}}
             \end{minipage}
 
-
-%>> (-1)/(4*0.50^2*0.0522*0.446)
-%ans =  -42.9531
 
             \begin{equation}
                 K_{P,R} = \frac{-1}{4 \cdot 0.50^2 \cdot 0.0522 \cdot 0.446} = -42.95
@@ -320,7 +342,7 @@ Time/ms;QEI1/steps;QEI2/steps;d/cm;Mot0/%
 
             The video shows the robot oscillating around the target distance for this the following Serial.ICE commands were sent:
             
-            \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands}]
+            \begin{lstlisting}[caption={Serial.ICE commands and received datalog}, label={lst:serial-ice-commands-osc}]
 r
 m0
 1-42
@@ -330,6 +352,10 @@ m0
 50.99
 61
             \end{lstlisting}
+
+            \todo[inline]{oscilation not perfekt, deadtime through sampleing rate.}
+
+            \todo[inline]{rate limit factor is implemented for high speeds when robot is using full motor speed as this results in weel slipage and erros in all mesurments}
 
             \cleardoublepage
 
